@@ -5,6 +5,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 1.router文件夹默认会加载文件夹下index.js文件
 import router from '@/router'
 
+import axios from 'axios'
+Vue.prototype.$http = axios
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
