@@ -51,16 +51,14 @@
         <!-- 下拉菜单组件 -->
         <el-dropdown class="my-dropdown">
           <span class="el-dropdown-link">
-            <img class="avatar" src="../../assets/avatar.jpg" alt />
-            <span class="name">用户名称</span>
+            <img class="avatar" :src="photo" alt />
+            <span class="name">{{name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <!-- vue基础知识  插槽 -->
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">
-              <span @click="logout">退出登录</span>
-            </el-dropdown-item>
+            <el-dropdown-item icon="el-icon-setting" @click.native="setting()">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" @click.native="logout()">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -72,16 +70,28 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   name: '',
   data: function () {
     return {
       // 表示左菜单是展开还是收起
-      isOpen: true
+      isOpen: true,
+      name: '',
+      photo: ''
     }
   },
+  created () {
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
+  },
   methods: {
+    setting () {
+      this.$router.push('/setting')
+    },
     logout () {
+      store.delUser()
       this.$router.push('/login')
     },
     toggleAside () {

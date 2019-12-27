@@ -68,25 +68,33 @@ export default {
   methods: {
     login () {
       // 调用 validate 对整体表进行校验
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          // 校验成功  调用登录接口
-          this.$http
-            .post(
-              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-              this.loginForm
-            )
-            .then(res => {
-              // 成功 跳转
-              // 注意 登录 不够完善
-              // res.data.data 就是用户信息
-              store.setUser(res.data.data)
-              this.$router.push('/')
-            })
-            .catch(() => {
-              // 失败 提示
-              this.$message.error('手机号或验证码错误')
-            })
+      this.$refs.loginForm.validate(async valid => {
+      //   if (valid) {
+      //     // 校验成功  调用登录接口
+      //     this.$http
+      //       .post(
+      //         'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+      //         this.loginForm
+      //       )
+      //       .then(res => {
+      //         // 成功 跳转
+      //         // 注意 登录 不够完善
+      //         // res.data.data 就是用户信息
+      //         store.setUser(res.data.data)
+      //         this.$router.push('/')
+      //       })
+      //       .catch(() => {
+      //         // 失败 提示
+      //         this.$message.error('手机号或验证码错误')
+      //       })
+
+        // 使用try{}catch(e){}可以捕获和处理异常
+        try {
+          const res = await this.$http.post('authorizations', this.loginForm)
+          store.setUser(res.data.data)
+          this.$router.push('/')
+        } catch (error) {
+          this.$message.error('手机号或验证码错误')
         }
       })
     }
