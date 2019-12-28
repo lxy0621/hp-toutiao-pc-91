@@ -5,12 +5,21 @@ import store from '@/store'
 
 import router from '@/router'
 
+import JSONBIGINT from 'json-bigint'
+
 // 进行配置
 // 1. 基准地址
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 // 2. 请求头 token
 // 配置头部的代码不能在这里写，这里的代码只会在刷新页面后执行一次
 // axios.defaults.headers.Authorization = `Bearer ${store.getUser().token}`
+
+// 进行配置
+// 3. 自定义转换响应内容
+axios.defaults.transformResponse = [(data) => {
+  // data 原始数据
+  return JSONBIGINT.parse(data)
+}]
 
 // 请求拦截器
 axios.interceptors.request.use(config => {

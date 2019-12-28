@@ -49,8 +49,8 @@ export default {
     }
     return {
       loginForm: {
-        mobille: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       },
       loginRules: {
         // 给字段加校验规则（多个）

@@ -13,6 +13,8 @@ import Welcome from '@/views/home/welcome'
 
 import NotFound from '@/views/404'
 
+import Article from '@/views/article'
+
 Vue.use(VueRouter)
 
 // 实例化Vue对象
@@ -21,7 +23,8 @@ const router = new VueRouter({
     { path: '/',
       component: Home,
       children: [
-        { path: '/', component: Welcome }
+        { path: '/', component: Welcome },
+        { path: '/article', name: 'article', component: Article }
       ]
     },
     { path: '/login', name: 'login', component: Login },
