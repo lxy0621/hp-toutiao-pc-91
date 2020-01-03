@@ -70,6 +70,8 @@
 
 <script>
 import store from '@/store'
+import eventBus from '@/eventBus'
+// import eventBus from '@/eventBus'
 export default {
   name: '',
   data: function () {
@@ -84,6 +86,13 @@ export default {
     const user = store.getUser()
     this.name = user.name
     this.photo = user.photo
+    // 绑定事件，先绑定后触发，越早绑越好
+    eventBus.$on('updateUserName', (name) => {
+      this.name = name
+    })
+    eventBus.$on('updateUserPhoto', (photo) => {
+      this.photo = photo
+    })
   },
   methods: {
     setting () {
@@ -133,6 +142,8 @@ export default {
       width: 30px;
       height: 30px;
       vertical-align: middle;
+      float: left;
+      margin-top: 15px;
     }
     .name {
       color: #333;

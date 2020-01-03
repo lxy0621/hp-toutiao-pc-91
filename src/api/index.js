@@ -18,7 +18,11 @@ axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 // 3. 自定义转换响应内容
 axios.defaults.transformResponse = [(data) => {
   // data 原始数据
-  return JSONBIGINT.parse(data)
+  try {
+    return JSONBIGINT.parse(data)
+  } catch (e) {
+    return data
+  }
 }]
 
 // 请求拦截器
@@ -34,7 +38,7 @@ axios.interceptors.response.use(res => res, err => {
   // 根据当前的响应状态码是不是401去跳转登陆页面
   // err对象包含 错误的时候响应对象，err.response
   // 状态码 err.response.status就是
-  if (err.response.status === 401) {
+  if (err.response && err.response.status === 401) {
   // 如果是vue主键中，this.$router.push('login')    路由实例$$router提供push函数
   // 如果在js模块中，导入创建好的实例对象调用push函数即可
     router.push('/login')

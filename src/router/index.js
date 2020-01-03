@@ -15,6 +15,16 @@ import NotFound from '@/views/404'
 
 import Article from '@/views/article'
 
+import Image from '@/views/image'
+
+import Publish from '@/views/publish'
+
+import Comment from '@/views/comment'
+
+import Setting from '@/views/setting'
+
+import Fans from '@/views/fans'
+
 Vue.use(VueRouter)
 
 // 实例化Vue对象
@@ -24,7 +34,12 @@ const router = new VueRouter({
       component: Home,
       children: [
         { path: '/', component: Welcome },
-        { path: '/article', name: 'article', component: Article }
+        { path: '/article', component: Article },
+        { path: '/image', component: Image },
+        { path: '/publish', component: Publish },
+        { path: '/comment', component: Comment },
+        { path: '/setting', component: Setting },
+        { path: '/fans', component: Fans }
       ]
     },
     { path: '/login', name: 'login', component: Login },

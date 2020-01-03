@@ -9,6 +9,9 @@ import axios from '@/api'
 
 // 注册全局组件
 import plugin from '@/plugin'
+
+import '@/styles/index.less'
+
 Vue.use(plugin)
 
 Vue.prototype.$http = axios

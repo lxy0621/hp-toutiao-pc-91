@@ -21,19 +21,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="频道：">
-          <el-select
-           v-model="filterParams.channel_id"
-            @change="changeChannel"
-            clearable
-            placeholder="请选择"
-            >
-            <el-option
-              v-for="item in channelOptions"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            ></el-option>
-          </el-select>
+          <my-channel v-model="filterParams.channel_id"></my-channel>
         </el-form-item>
         <el-form-item label="日期：">
           <el-date-picker
@@ -77,9 +65,9 @@
         </el-table-column>
         <el-table-column label="发布时间" prop="pubdate"></el-table-column>
         <el-table-column label="操作">
-          <template>
-            <el-button plain type="primary" icon="el-icon-edit" circle></el-button>
-            <el-button plain type="danger" icon="el-icon-delete" circle></el-button>
+          <template slot-scope="scope">
+            <el-button @click="toEdit(scope.row.id)" plain type="primary" icon="el-icon-edit" circle></el-button>
+            <el-button @click="delArticle(scope.row.id)" plain type="danger" icon="el-icon-delete" circle></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -150,6 +138,27 @@ export default {
       this.filterParams.page = 1
       this.getArticles()
     },
+    async delArticle (articleId) {
+      try {
+        await this.$http.delete(`articles/${articleId}`)
+        this.$message.success('删除成功')
+        this.getArticles()
+      } catch (e) {
+        this.$message.error('删除失败')
+      }
+    },
+    toEdit (articleId) {
+      this.$router.push(`/publish?id=${articleId}`)
+    },
+    // async delArticle (articleId) {
+    //   try{
+    //     await this.$http.delete(`articles/${articleId}`)
+    //     this.$message.success('删除成功')
+    //     this.getArticles()
+    //   } catch (e) {
+    //     this.$message.error('删除失败')
+    //   }
+    // },
     changeDate (value) {
       // value 和 this.dateArr的值一致的
       // if (value) value = [null, null]
