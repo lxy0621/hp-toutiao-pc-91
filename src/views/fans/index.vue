@@ -27,7 +27,7 @@
             hide-on-single-page
           ></el-pagination>
         </el-tab-pane>
-        <el-tab-pane label="粉丝画像" name="picture">
+        <el-tab-pane label="粉丝画像111" name="picture">
           <div ref="dom" style="width:600px;height:400px"></div>
         </el-tab-pane>
       </el-tabs>
